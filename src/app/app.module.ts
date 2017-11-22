@@ -10,13 +10,16 @@ import { HomePage } from '../pages/home/home';
 import { RecordPage, TabsPage } from '../pages/index.pages'
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { ScanRecordsProvider } from '../providers/scan-records/scan-records';
+import { ScanRecordsProvider } from '../providers/scan-records/scan-records.provider';
+import { DetailFoodPage } from "../pages/detail-food/detail-food";
+import { FoodProvider } from '../providers/food/food.provider';
 
 let pages = [
   MyApp,
   HomePage,
   RecordPage,
-  TabsPage
+  TabsPage,
+  DetailFoodPage
 ];
 
 export function getPages(){
@@ -45,7 +48,8 @@ export function providers(){
     SplashScreen,
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ScanRecordsProvider
+    ScanRecordsProvider,
+    FoodProvider
   ]
 })
 export class AppModule {}

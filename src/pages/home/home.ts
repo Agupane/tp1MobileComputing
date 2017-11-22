@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ToastController, Platform } from "ionic-angular";
-import {ScanRecordsProvider} from "../../providers/scan-records/scan-records";
+import {ScanRecordsProvider} from "../../providers/scan-records/scan-records.provider";
 
 @Component({
   selector: 'page-home',
@@ -26,8 +26,8 @@ export class HomePage {
           console.log("Result format: ", barcodeData.format);
           console.log("Result Cancelled: ", barcodeData.cancelled);
 
-          if( barcodeData.cancelled == 0 && barcodeData.text != null){
-            scanRecordsService.addNewScan(barcodeData.text);
+          if( !barcodeData.cancelled && barcodeData.text != null){
+            this.scanRecordsService.addNewScan(barcodeData.text);
             console.log("Information of the scan added to the records");
           }
         },
@@ -40,7 +40,11 @@ export class HomePage {
     }
     /** Otherwise we are making test on the browser **/
     else{
-
+      /** We add a hardcoded scan for test **/
+      console.log("Scan browser detected");
+      this.scanRecordsService.addNewScan("taco");
+      this.scanRecordsService.addNewScan("spaguetti");
+    //  this.scanRecordsService.addNewScan("Test scan");
     }
 
 
