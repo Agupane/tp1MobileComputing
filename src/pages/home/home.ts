@@ -30,6 +30,9 @@ export class HomePage {
 
           if( !barcodeData.cancelled && barcodeData.text != null){
             this.scanRecordsService.addNewScan(barcodeData.text);
+
+            console.log("Info scaned: ");
+            console.log(barcodeData.text);
             console.log("Information of the scan added to the records");
           }
         },

@@ -13,7 +13,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ScanRecordsProvider } from '../providers/scan-records/scan-records.provider';
 import { DetailFoodPage } from "../pages/detail-food/detail-food";
 import { FoodProvider } from '../providers/food/food.provider';
-import { FromStringToJsonPipe } from "./fromStringToJson.pipe";
+
 
 
 
@@ -23,8 +23,7 @@ let pages = [
   HomePage,
   RecordPage,
   TabsPage,
-  DetailFoodPage,
-  FromStringToJsonPipe
+  DetailFoodPage
 ];
 
 export function getPages(){
