@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ToastController, Platform } from "ionic-angular";
-import {ScanRecordsProvider} from "../../providers/scan-records/scan-records.provider";
+import { ScanRecordsProvider } from "../../providers/scan-records/scan-records.provider";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+
 
   constructor(private barcodeScanner: BarcodeScanner, private toastCtrl: ToastController, private platform: Platform, private scanRecordsService: ScanRecordsProvider) {
 
@@ -18,6 +19,7 @@ export class HomePage {
 
     /** We use this only if we are in the mobile **/
     if(this.platform.is("cordova")){
+      console.log("Using mobile scan");
       this.barcodeScanner.scan().then(
         (barcodeData) => {
           // Success! Barcode data is here
@@ -41,9 +43,10 @@ export class HomePage {
     /** Otherwise we are making test on the browser **/
     else{
       /** We add a hardcoded scan for test **/
-      console.log("Scan browser detected");
-      this.scanRecordsService.addNewScan("taco");
-      this.scanRecordsService.addNewScan("spaguetti");
+      let tacoString:string =  '{ "name":"Taco","photoUrl":"../assets/imgs/foods/taco.jpg"}' ;
+      let spaguettiString:string = ' { "name":"Spaguetti","photoUrl":"../assets/imgs/foods/spaguetti.jpg" } ';
+      this.scanRecordsService.addNewScan(tacoString);
+      this.scanRecordsService.addNewScan(spaguettiString);
     //  this.scanRecordsService.addNewScan("Test scan");
     }
 
