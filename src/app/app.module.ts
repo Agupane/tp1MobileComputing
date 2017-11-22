@@ -14,7 +14,7 @@ import { ScanRecordsProvider } from '../providers/scan-records/scan-records.prov
 import { DetailFoodPage } from "../pages/detail-food/detail-food";
 import { FoodProvider } from '../providers/food/food.provider';
 
-
+import { Dialogs } from '@ionic-native/dialogs';
 
 
 
@@ -59,7 +59,8 @@ export function providers(){
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ScanRecordsProvider,
-    FoodProvider
+    FoodProvider,
+    Dialogs,
   ]
 })
 export class AppModule {}

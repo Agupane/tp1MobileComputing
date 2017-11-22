@@ -42,7 +42,7 @@ export class HomePage {
     else{
       /** We add a hardcoded scan for test **/
       let tacoString:string =  '{ "name":"Taco","photoUrl":"../assets/imgs/foods/taco.jpg"}' ;
-      let spaguettiString:string = ' { "name":"Spaguetti","photoUrl":"../assets/imgs/foods/spaguetti.jpg" } ';
+        let spaguettiString:string = ' { "name":"Spaguetti","photoUrl":"../assets/imgs/foods/spaguetti.jpg" } ';
       this.scanRecordsService.addNewScan(tacoString);
       this.scanRecordsService.addNewScan(spaguettiString);
     //  this.scanRecordsService.addNewScan("Test scan");
