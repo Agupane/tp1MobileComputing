@@ -23,16 +23,11 @@ export class HomePage {
       this.barcodeScanner.scan().then(
         (barcodeData) => {
           // Success! Barcode data is here
-          console.log("Data scaned:");
-          console.log("Result text: ", barcodeData.text);
-          console.log("Result format: ", barcodeData.format);
-          console.log("Result Cancelled: ", barcodeData.cancelled);
+          console.log("Text scaned: ");
+          console.log(barcodeData.text);
 
           if( !barcodeData.cancelled && barcodeData.text != null){
             this.scanRecordsService.addNewScan(barcodeData.text);
-
-            console.log("Info scaned: ");
-            console.log(barcodeData.text);
             console.log("Information of the scan added to the records");
           }
         },
