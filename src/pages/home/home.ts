@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ToastController, Platform } from "ionic-angular";
+import {ScanRecordsProvider} from "../../providers/scan-records/scan-records";
 
 @Component({
   selector: 'page-home',
@@ -8,7 +9,7 @@ import { ToastController, Platform } from "ionic-angular";
 })
 export class HomePage {
 
-  constructor(private barcodeScanner: BarcodeScanner, private toastCtrl: ToastController, private platform: Platform) {
+  constructor(private barcodeScanner: BarcodeScanner, private toastCtrl: ToastController, private platform: Platform, private scanRecordsService: ScanRecordsProvider) {
 
   }
 
@@ -24,7 +25,13 @@ export class HomePage {
           console.log("Result text: ", barcodeData.text);
           console.log("Result format: ", barcodeData.format);
           console.log("Result Cancelled: ", barcodeData.cancelled);
-        },(err) => {
+
+          if( barcodeData.cancelled == 0 && barcodeData.text != null){
+            scanRecordsService.addNewScan(barcodeData.text);
+            console.log("Information of the scan added to the records");
+          }
+        },
+        (err) => {
           // An error occurred
           console.error("Scan problem", err);
           this.presentToast("There was a problem in the QR Scan, please try again");

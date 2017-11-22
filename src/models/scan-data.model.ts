@@ -3,7 +3,8 @@ export class ScanData{
   info:string;
   type:string;
 
-  constructor(type:string){
-    this.type = type;
+  constructor(dataScaned:string){
+    this.type = dataScaned;
+    this.info = dataScaned;
   }
 }
