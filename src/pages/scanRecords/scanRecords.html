@@ -1,21 +1,17 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>
-      Scan&Order!
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button block (click)="scan()">Scan QR</button>
-    </ion-buttons>
+    <ion-title>Food Selected Record</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
+
+<ion-content>
 
   <ion-list>
 
-    <button ion-item (click)="showDetailedFood(i)" *ngFor="let data of foodRecords; let i = index">
+    <button ion-item (click)="showDetailedFood(i)" *ngFor="let data of records; let i = index">
 
       <ion-thumbnail item-start>
         <img [src]="data.info.photoUrl">

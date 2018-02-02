@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ food.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-img [src]="food.photoUrl" width="100%" height="100%"></ion-img>
+        <p>{{ food.description }}</p>
+        <button ion-button (click)="closeModal()">Close</button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
