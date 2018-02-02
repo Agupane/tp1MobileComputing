@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { RecordPage, TabsPage } from '../pages/index.pages'
+import { TabsPage } from '../pages/index.pages'
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ScanRecordsProvider } from '../providers/scan-records/scan-records.provider';
@@ -21,7 +21,6 @@ import { Dialogs } from '@ionic-native/dialogs';
 let pages = [
   MyApp,
   HomePage,
-  RecordPage,
   TabsPage,
   DetailFoodPage
 ];
@@ -49,7 +48,6 @@ export function providers(){
   entryComponents: [
     MyApp,
     HomePage,
-    RecordPage,
     TabsPage,
     DetailFoodPage
   ],

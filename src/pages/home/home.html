@@ -4,9 +4,9 @@
     <ion-title>
       Scan&Order!
     </ion-title>
-    <ion-buttons end>
+<!--    <ion-buttons end>
       <button ion-button block (click)="scan()">Scan QR</button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
@@ -15,18 +15,51 @@
 
   <ion-list>
 
-    <button ion-item (click)="showDetailedFood(i)" *ngFor="let data of foodRecords; let i = index">
+    <button ion-item *ngFor="let data of foodRecords; let i = index">
 
-      <ion-thumbnail item-start>
+      <ion-thumbnail item-start (click)="showDetailedFood(i)">
         <img [src]="data.info.photoUrl">
       </ion-thumbnail>
-      <h1>{{ data.info.name}}</h1>
+      <h2>{{ data.info.name}}</h2>
+      <p>Quantity: {{data.info.quantityOrdered}}</p>
+      <p>Unit Price: u$s {{data.info.price}}</p>
+
+      <ion-buttons>
+        <button ion-button icon-only (click)="orderLess(data)">
+          <ion-icon name="remove"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="orderMore(data)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="deleteFoodItem(data)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-buttons>
+
     </button>
 
   </ion-list>
 
-  <button ion-button (click)="confirmMenu()" block>
+  <div *ngIf="foodRecords.length">
+    <div class="orderSummary">
+      <h4>Total price: </h4>
+      <span>u$s {{getTotalPriceOrder()}}</span>
+    </div>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="scan()">
+      <ion-icon name="qr-scanner"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <button ion-button (click)="confirmMenu()" block *ngIf="foodRecords.length>0">
     Confirm Menu
   </button>
+
+  <div *ngIf="foodRecords.length===0">
+    <h2>Welcome to the QR Food App!</h2>
+    <p>If you want to order something just use the scan button to scan the QR in our menu!.</p>
+  </div>
 
 </ion-content>

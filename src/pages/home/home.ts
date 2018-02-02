@@ -25,12 +25,16 @@ export class HomePage {
               private dialogs:Dialogs,
               private alertCtrl: AlertController) {
 
+    this.scanRecordsService.recordsChange.subscribe(
+      (foodRecordsUpdated:ScanData[])=>{
+        console.log("Detecting changes on the records list, updating the GUI");
+        this.foodRecords = foodRecordsUpdated;
+      }
+    )
   }
 
   ionViewDidLoad(){
     this.foodRecords = this.scanRecordsService.getScanRecords();
-    console.log("Mostrando un record");
-    console.log(this.foodRecords[0]);
   }
 
   /**
@@ -48,7 +52,7 @@ export class HomePage {
           console.log("Text scaned: ");
           console.log(barcodeData.text);
           if( !barcodeData.cancelled && barcodeData.text != null){
-            this.scanRecordsService.addNewScan(barcodeData.text);
+            this.scanRecordsService.addNewScanIfNotAlreadyScanned(barcodeData.text);
             console.log("Information of the scan added to the records");
           }
         },
@@ -62,11 +66,10 @@ export class HomePage {
     /** Otherwise we are making test on the browser **/
     else{
       /** We add a hardcoded scan for test **/
-      let tacoString:string =  '{ "name":"Taco","photoUrl":"../assets/imgs/foods/taco.jpg"}' ;
-        let spaguettiString:string = ' { "name":"Spaguetti","photoUrl":"../assets/imgs/foods/spaguetti.jpg" } ';
-      this.scanRecordsService.addNewScan(tacoString);
-      this.scanRecordsService.addNewScan(spaguettiString);
-    //  this.scanRecordsService.addNewScan("Test scan");
+      let tacoString:string =  '{ "name":"Taco","photoUrl":"../assets/imgs/foods/taco.jpg", "quantityOrdered": 1, "price": "10" }' ;
+      let spaguettiString:string = ' { "name":"Spaguetti","photoUrl":"../assets/imgs/foods/spaguetti.jpg", "quantityOrdered": 1, "price": "5" } ';
+      this.scanRecordsService.addNewScanIfNotAlreadyScanned(tacoString);
+      this.scanRecordsService.addNewScanIfNotAlreadyScanned(spaguettiString);
     }
   };
 
@@ -121,11 +124,44 @@ export class HomePage {
           handler: () =>{
             /** Button Accept, We send a msg **/
             this.presentToast("Thank you, in a few minutes the waiter is going to bring your food");
+            this.scanRecordsService.clearRecords();
           }
         }
       ]
     });
 
     alert.present();
+  }
+
+  orderMore(data:any){
+    data.info.quantityOrdered++;
+  }
+
+  orderLess(data:any){
+    if(data.info.quantityOrdered>0) {
+      data.info.quantityOrdered = data.info.quantityOrdered - 1;
+    }
+  }
+
+  deleteFoodItem(data:ScanData){
+    console.log("Deleting item: ", data);
+    /** Looks on the array the find the item to delete and then just delete it **/
+    for(let i = this.foodRecords.length; i--;) {
+      if(this.foodRecords[i].info.name === data.info.name) {
+        this.foodRecords.splice(i, 1);
+      }
+    }
+  }
+
+  /**
+   * Calculates the total of the order and return it
+   * @returns {string}
+   */
+  getTotalPriceOrder(){
+    let totalCounter = 0;
+    for(let i = this.foodRecords.length; i--;) {
+      totalCounter += this.foodRecords[i].info.quantityOrdered * this.foodRecords[i].info.price;
+    }
+    return totalCounter;
   }
 }

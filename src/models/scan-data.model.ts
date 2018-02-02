@@ -2,6 +2,7 @@ export class ScanData{
 
   info:any;
   type:string;
+  quantityOrdered:number;
 
   constructor(infoScan:string, typeScan:string){
     this.type = typeScan;
@@ -12,5 +13,7 @@ export class ScanData{
     if(this.type == 'food'){
       this.info = JSON.parse(infoScan);
     }
+
+    this.quantityOrdered = 1;
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { HomePage, RecordPage } from "../index.pages";
+import { HomePage } from "../index.pages";
 
 @IonicPage()
 @Component({
@@ -10,8 +10,6 @@ import { HomePage, RecordPage } from "../index.pages";
 export class TabsPage {
 
   tabHome: any = HomePage;
-  tabRecords: any = RecordPage;
-
 
   constructor() {
   }
